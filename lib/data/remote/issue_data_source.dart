@@ -18,7 +18,8 @@ abstract class IssueDataSource {
 
   @GET("/issues")
   Future<List<Issue>> getIssues({
-    @Query("per_page") int perPage = 30,
+    @Query("per_page") required int perPage,
+    @Query("page") required int page,
     @Query("labels") String? labels,
   });
 }

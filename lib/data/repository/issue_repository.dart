@@ -11,9 +11,14 @@ class IssueRepository {
 
   final Reader _read;
 
-  Future<Result<List<Issue>>> getIssues({String? labels}) {
+  Future<Result<List<Issue>>> getIssues(
+      {required int perPage, required int page, String? labels}) {
     return _read(issueDataSourceProvider)
-        .getIssues(labels: labels)
+        .getIssues(
+          perPage: perPage,
+          page: page,
+          labels: labels,
+        )
         .then((issues) => Result<List<Issue>>.success(issues))
         .catchError((error) => Result<List<Issue>>.failure(error));
   }

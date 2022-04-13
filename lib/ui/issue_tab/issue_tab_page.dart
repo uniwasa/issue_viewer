@@ -13,14 +13,44 @@ class IssueTabPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(issueTabPageControllerProvider(_type));
     return state.when(
-      data: (issues) {
-        return ListView.builder(
-          itemCount: issues.length,
-          itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-              title: Text(issues[index].title),
-            );
+      data: (data) {
+        final issues = data.issues;
+        final loadingNext = data.loadingNext;
+        print(issues.length);
+
+        return NotificationListener<ScrollNotification>(
+          onNotification: (notification) {
+            if (notification.metrics.extentAfter < 100) {
+              ref
+                  .read(issueTabPageControllerProvider(_type).notifier)
+                  .getNext();
+            }
+            return false;
           },
+          child: CustomScrollView(
+            key: PageStorageKey(_type),
+            slivers: [
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    return ListTile(
+                      title: Text(issues[index].title),
+                    );
+                  },
+                  childCount: issues.length,
+                ),
+              ),
+              if (loadingNext)
+                const SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16.0),
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
+                )
+            ],
+          ),
         );
       },
       error: (error, _) => Center(

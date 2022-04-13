@@ -18,10 +18,12 @@ class _IssueDataSource implements IssueDataSource {
   String? baseUrl;
 
   @override
-  Future<List<Issue>> getIssues({perPage = 30, labels}) async {
+  Future<List<Issue>> getIssues(
+      {required perPage, required page, labels}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'per_page': perPage,
+      r'page': page,
       r'labels': labels
     };
     queryParameters.removeWhere((k, v) => v == null);
