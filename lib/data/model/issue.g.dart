@@ -7,7 +7,7 @@ part of 'issue.dart';
 // **************************************************************************
 
 _$_Issue _$$_IssueFromJson(Map<String, dynamic> json) => _$_Issue(
-      title: json['title'] as String?,
+      title: json['title'] as String,
     );
 
 Map<String, dynamic> _$$_IssueToJson(_$_Issue instance) => <String, dynamic>{

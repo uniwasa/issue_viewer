@@ -11,9 +11,9 @@ class IssueRepository {
 
   final Reader _read;
 
-  Future<Result<List<Issue>>> getIssues() {
+  Future<Result<List<Issue>>> getIssues({String? labels}) {
     return _read(issueDataSourceProvider)
-        .getIssues()
+        .getIssues(labels: labels)
         .then((issues) => Result<List<Issue>>.success(issues))
         .catchError((error) => Result<List<Issue>>.failure(error));
   }

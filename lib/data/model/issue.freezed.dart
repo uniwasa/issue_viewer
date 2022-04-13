@@ -22,7 +22,7 @@ Issue _$IssueFromJson(Map<String, dynamic> json) {
 class _$IssueTearOff {
   const _$IssueTearOff();
 
-  _Issue call({String? title}) {
+  _Issue call({required String title}) {
     return _Issue(
       title: title,
     );
@@ -38,7 +38,7 @@ const $Issue = _$IssueTearOff();
 
 /// @nodoc
 mixin _$Issue {
-  String? get title => throw _privateConstructorUsedError;
+  String get title => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,7 +49,7 @@ mixin _$Issue {
 abstract class $IssueCopyWith<$Res> {
   factory $IssueCopyWith(Issue value, $Res Function(Issue) then) =
       _$IssueCopyWithImpl<$Res>;
-  $Res call({String? title});
+  $Res call({String title});
 }
 
 /// @nodoc
@@ -68,7 +68,7 @@ class _$IssueCopyWithImpl<$Res> implements $IssueCopyWith<$Res> {
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
@@ -78,7 +78,7 @@ abstract class _$IssueCopyWith<$Res> implements $IssueCopyWith<$Res> {
   factory _$IssueCopyWith(_Issue value, $Res Function(_Issue) then) =
       __$IssueCopyWithImpl<$Res>;
   @override
-  $Res call({String? title});
+  $Res call({String title});
 }
 
 /// @nodoc
@@ -98,7 +98,7 @@ class __$IssueCopyWithImpl<$Res> extends _$IssueCopyWithImpl<$Res>
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
@@ -106,13 +106,13 @@ class __$IssueCopyWithImpl<$Res> extends _$IssueCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Issue with DiagnosticableTreeMixin implements _Issue {
-  _$_Issue({this.title});
+  _$_Issue({required this.title});
 
   factory _$_Issue.fromJson(Map<String, dynamic> json) =>
       _$$_IssueFromJson(json);
 
   @override
-  final String? title;
+  final String title;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -151,12 +151,12 @@ class _$_Issue with DiagnosticableTreeMixin implements _Issue {
 }
 
 abstract class _Issue implements Issue {
-  factory _Issue({String? title}) = _$_Issue;
+  factory _Issue({required String title}) = _$_Issue;
 
   factory _Issue.fromJson(Map<String, dynamic> json) = _$_Issue.fromJson;
 
   @override
-  String? get title;
+  String get title;
   @override
   @JsonKey(ignore: true)
   _$IssueCopyWith<_Issue> get copyWith => throw _privateConstructorUsedError;

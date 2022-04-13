@@ -7,7 +7,7 @@ part 'issue.g.dart';
 @freezed
 class Issue with _$Issue {
   factory Issue({
-    String? title,
+    required String title,
   }) = _Issue;
 
   factory Issue.fromJson(Map<String, dynamic> json) => _$IssueFromJson(json);
