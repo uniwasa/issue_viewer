@@ -22,12 +22,14 @@ class _$IssueTabStateTearOff {
       {required List<Issue> issues,
       required int page,
       required bool loadingNext,
-      required bool hasNext}) {
+      required bool hasNext,
+      required FilterState filterState}) {
     return _IssueTabState(
       issues: issues,
       page: page,
       loadingNext: loadingNext,
       hasNext: hasNext,
+      filterState: filterState,
     );
   }
 }
@@ -41,6 +43,7 @@ mixin _$IssueTabState {
   int get page => throw _privateConstructorUsedError;
   bool get loadingNext => throw _privateConstructorUsedError;
   bool get hasNext => throw _privateConstructorUsedError;
+  FilterState get filterState => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $IssueTabStateCopyWith<IssueTabState> get copyWith =>
@@ -52,7 +55,14 @@ abstract class $IssueTabStateCopyWith<$Res> {
   factory $IssueTabStateCopyWith(
           IssueTabState value, $Res Function(IssueTabState) then) =
       _$IssueTabStateCopyWithImpl<$Res>;
-  $Res call({List<Issue> issues, int page, bool loadingNext, bool hasNext});
+  $Res call(
+      {List<Issue> issues,
+      int page,
+      bool loadingNext,
+      bool hasNext,
+      FilterState filterState});
+
+  $FilterStateCopyWith<$Res> get filterState;
 }
 
 /// @nodoc
@@ -70,6 +80,7 @@ class _$IssueTabStateCopyWithImpl<$Res>
     Object? page = freezed,
     Object? loadingNext = freezed,
     Object? hasNext = freezed,
+    Object? filterState = freezed,
   }) {
     return _then(_value.copyWith(
       issues: issues == freezed
@@ -88,7 +99,18 @@ class _$IssueTabStateCopyWithImpl<$Res>
           ? _value.hasNext
           : hasNext // ignore: cast_nullable_to_non_nullable
               as bool,
+      filterState: filterState == freezed
+          ? _value.filterState
+          : filterState // ignore: cast_nullable_to_non_nullable
+              as FilterState,
     ));
+  }
+
+  @override
+  $FilterStateCopyWith<$Res> get filterState {
+    return $FilterStateCopyWith<$Res>(_value.filterState, (value) {
+      return _then(_value.copyWith(filterState: value));
+    });
   }
 }
 
@@ -99,7 +121,15 @@ abstract class _$IssueTabStateCopyWith<$Res>
           _IssueTabState value, $Res Function(_IssueTabState) then) =
       __$IssueTabStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<Issue> issues, int page, bool loadingNext, bool hasNext});
+  $Res call(
+      {List<Issue> issues,
+      int page,
+      bool loadingNext,
+      bool hasNext,
+      FilterState filterState});
+
+  @override
+  $FilterStateCopyWith<$Res> get filterState;
 }
 
 /// @nodoc
@@ -119,6 +149,7 @@ class __$IssueTabStateCopyWithImpl<$Res>
     Object? page = freezed,
     Object? loadingNext = freezed,
     Object? hasNext = freezed,
+    Object? filterState = freezed,
   }) {
     return _then(_IssueTabState(
       issues: issues == freezed
@@ -137,6 +168,10 @@ class __$IssueTabStateCopyWithImpl<$Res>
           ? _value.hasNext
           : hasNext // ignore: cast_nullable_to_non_nullable
               as bool,
+      filterState: filterState == freezed
+          ? _value.filterState
+          : filterState // ignore: cast_nullable_to_non_nullable
+              as FilterState,
     ));
   }
 }
@@ -148,7 +183,8 @@ class _$_IssueTabState with DiagnosticableTreeMixin implements _IssueTabState {
       {required this.issues,
       required this.page,
       required this.loadingNext,
-      required this.hasNext});
+      required this.hasNext,
+      required this.filterState});
 
   @override
   final List<Issue> issues;
@@ -158,10 +194,12 @@ class _$_IssueTabState with DiagnosticableTreeMixin implements _IssueTabState {
   final bool loadingNext;
   @override
   final bool hasNext;
+  @override
+  final FilterState filterState;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'IssueTabState(issues: $issues, page: $page, loadingNext: $loadingNext, hasNext: $hasNext)';
+    return 'IssueTabState(issues: $issues, page: $page, loadingNext: $loadingNext, hasNext: $hasNext, filterState: $filterState)';
   }
 
   @override
@@ -172,7 +210,8 @@ class _$_IssueTabState with DiagnosticableTreeMixin implements _IssueTabState {
       ..add(DiagnosticsProperty('issues', issues))
       ..add(DiagnosticsProperty('page', page))
       ..add(DiagnosticsProperty('loadingNext', loadingNext))
-      ..add(DiagnosticsProperty('hasNext', hasNext));
+      ..add(DiagnosticsProperty('hasNext', hasNext))
+      ..add(DiagnosticsProperty('filterState', filterState));
   }
 
   @override
@@ -184,7 +223,9 @@ class _$_IssueTabState with DiagnosticableTreeMixin implements _IssueTabState {
             const DeepCollectionEquality().equals(other.page, page) &&
             const DeepCollectionEquality()
                 .equals(other.loadingNext, loadingNext) &&
-            const DeepCollectionEquality().equals(other.hasNext, hasNext));
+            const DeepCollectionEquality().equals(other.hasNext, hasNext) &&
+            const DeepCollectionEquality()
+                .equals(other.filterState, filterState));
   }
 
   @override
@@ -193,7 +234,8 @@ class _$_IssueTabState with DiagnosticableTreeMixin implements _IssueTabState {
       const DeepCollectionEquality().hash(issues),
       const DeepCollectionEquality().hash(page),
       const DeepCollectionEquality().hash(loadingNext),
-      const DeepCollectionEquality().hash(hasNext));
+      const DeepCollectionEquality().hash(hasNext),
+      const DeepCollectionEquality().hash(filterState));
 
   @JsonKey(ignore: true)
   @override
@@ -206,7 +248,8 @@ abstract class _IssueTabState implements IssueTabState {
       {required List<Issue> issues,
       required int page,
       required bool loadingNext,
-      required bool hasNext}) = _$_IssueTabState;
+      required bool hasNext,
+      required FilterState filterState}) = _$_IssueTabState;
 
   @override
   List<Issue> get issues;
@@ -216,6 +259,8 @@ abstract class _IssueTabState implements IssueTabState {
   bool get loadingNext;
   @override
   bool get hasNext;
+  @override
+  FilterState get filterState;
   @override
   @JsonKey(ignore: true)
   _$IssueTabStateCopyWith<_IssueTabState> get copyWith =>

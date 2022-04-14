@@ -6,8 +6,11 @@ part 'issue.g.dart';
 
 @freezed
 class Issue with _$Issue {
+  @JsonSerializable(fieldRename: FieldRename.snake)
   factory Issue({
     required String title,
+    required DateTime createdAt,
+    required DateTime updatedAt,
   }) = _Issue;
 
   factory Issue.fromJson(Map<String, dynamic> json) => _$IssueFromJson(json);

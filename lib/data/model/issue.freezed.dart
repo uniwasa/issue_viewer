@@ -22,9 +22,14 @@ Issue _$IssueFromJson(Map<String, dynamic> json) {
 class _$IssueTearOff {
   const _$IssueTearOff();
 
-  _Issue call({required String title}) {
+  _Issue call(
+      {required String title,
+      required DateTime createdAt,
+      required DateTime updatedAt}) {
     return _Issue(
       title: title,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
     );
   }
 
@@ -39,6 +44,8 @@ const $Issue = _$IssueTearOff();
 /// @nodoc
 mixin _$Issue {
   String get title => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,7 +56,7 @@ mixin _$Issue {
 abstract class $IssueCopyWith<$Res> {
   factory $IssueCopyWith(Issue value, $Res Function(Issue) then) =
       _$IssueCopyWithImpl<$Res>;
-  $Res call({String title});
+  $Res call({String title, DateTime createdAt, DateTime updatedAt});
 }
 
 /// @nodoc
@@ -63,12 +70,22 @@ class _$IssueCopyWithImpl<$Res> implements $IssueCopyWith<$Res> {
   @override
   $Res call({
     Object? title = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -78,7 +95,7 @@ abstract class _$IssueCopyWith<$Res> implements $IssueCopyWith<$Res> {
   factory _$IssueCopyWith(_Issue value, $Res Function(_Issue) then) =
       __$IssueCopyWithImpl<$Res>;
   @override
-  $Res call({String title});
+  $Res call({String title, DateTime createdAt, DateTime updatedAt});
 }
 
 /// @nodoc
@@ -93,30 +110,46 @@ class __$IssueCopyWithImpl<$Res> extends _$IssueCopyWithImpl<$Res>
   @override
   $Res call({
     Object? title = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_Issue(
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$_Issue with DiagnosticableTreeMixin implements _Issue {
-  _$_Issue({required this.title});
+  _$_Issue(
+      {required this.title, required this.createdAt, required this.updatedAt});
 
   factory _$_Issue.fromJson(Map<String, dynamic> json) =>
       _$$_IssueFromJson(json);
 
   @override
   final String title;
+  @override
+  final DateTime createdAt;
+  @override
+  final DateTime updatedAt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Issue(title: $title)';
+    return 'Issue(title: $title, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -124,7 +157,9 @@ class _$_Issue with DiagnosticableTreeMixin implements _Issue {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'Issue'))
-      ..add(DiagnosticsProperty('title', title));
+      ..add(DiagnosticsProperty('title', title))
+      ..add(DiagnosticsProperty('createdAt', createdAt))
+      ..add(DiagnosticsProperty('updatedAt', updatedAt));
   }
 
   @override
@@ -132,12 +167,17 @@ class _$_Issue with DiagnosticableTreeMixin implements _Issue {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Issue &&
-            const DeepCollectionEquality().equals(other.title, title));
+            const DeepCollectionEquality().equals(other.title, title) &&
+            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
+            const DeepCollectionEquality().equals(other.updatedAt, updatedAt));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(title));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(title),
+      const DeepCollectionEquality().hash(createdAt),
+      const DeepCollectionEquality().hash(updatedAt));
 
   @JsonKey(ignore: true)
   @override
@@ -151,12 +191,19 @@ class _$_Issue with DiagnosticableTreeMixin implements _Issue {
 }
 
 abstract class _Issue implements Issue {
-  factory _Issue({required String title}) = _$_Issue;
+  factory _Issue(
+      {required String title,
+      required DateTime createdAt,
+      required DateTime updatedAt}) = _$_Issue;
 
   factory _Issue.fromJson(Map<String, dynamic> json) = _$_Issue.fromJson;
 
   @override
   String get title;
+  @override
+  DateTime get createdAt;
+  @override
+  DateTime get updatedAt;
   @override
   @JsonKey(ignore: true)
   _$IssueCopyWith<_Issue> get copyWith => throw _privateConstructorUsedError;

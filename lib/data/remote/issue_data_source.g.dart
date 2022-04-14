@@ -19,11 +19,19 @@ class _IssueDataSource implements IssueDataSource {
 
   @override
   Future<List<Issue>> getIssues(
-      {required perPage, required page, labels}) async {
+      {required perPage,
+      required page,
+      required state,
+      required sort,
+      required direction,
+      labels}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'per_page': perPage,
       r'page': page,
+      r'state': state,
+      r'sort': sort,
+      r'direction': direction,
       r'labels': labels
     };
     queryParameters.removeWhere((k, v) => v == null);

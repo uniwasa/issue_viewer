@@ -1,6 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:issue_viewer/data/model/issue.dart';
 import 'package:issue_viewer/data/model/issue_tab_state.dart';
+import 'package:issue_viewer/data/provider/global_filter_state_provider.dart';
 
 import '../../data/enum/tab_type.dart';
 import '../../data/repository/issue_repository.dart';
@@ -21,7 +22,13 @@ class IssueTabPageController extends StateNotifier<AsyncValue<IssueTabState>> {
   final _perPage = 20;
 
   void init() {
-    _getIssues([], 1);
+    // 検索条件が異なれば取得(初回は必ず異なるので取得)
+    final globalFilterState = _read(globalFilterStateProvider);
+    final currentFilterState = state.value?.filterState;
+    if (globalFilterState != currentFilterState) {
+      state = const AsyncLoading();
+      _getIssues([], 1);
+    }
   }
 
   Future<void> getNext() async {
@@ -40,18 +47,34 @@ class IssueTabPageController extends StateNotifier<AsyncValue<IssueTabState>> {
   }
 
   Future<void> _getIssues(List<Issue> currentIssues, int nextPage) async {
+    final filterState = _read(globalFilterStateProvider);
     _read(issueRepositoryProvider)
-        .getIssues(perPage: _perPage, page: nextPage, labels: _tabType.label)
+        .getIssues(
+            perPage: _perPage,
+            page: nextPage,
+            onlyOpen: filterState.onlyOpen,
+            sortType: filterState.sortType,
+            labels: _tabType.label)
         .then(
           (result) => result.when(
             success: (nextIssues) {
               final bool hasNext = nextIssues.length >= _perPage;
+
+              // TODO: 1年以内のフィルタのみクライアント側で対応。API側でしたい
+              if (filterState.pastYear) {
+                nextIssues = nextIssues
+                    .where((element) => element.updatedAt.isAfter(
+                        DateTime.now().add(const Duration(days: 365) * -1)))
+                    .toList();
+              }
+
               state = AsyncData(
                 IssueTabState(
                   issues: currentIssues + nextIssues,
                   page: nextPage,
                   loadingNext: false,
                   hasNext: hasNext,
+                  filterState: filterState,
                 ),
               );
             },

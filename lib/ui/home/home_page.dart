@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:issue_viewer/ui/filter_sheet/filter_sheet.dart';
+import 'package:issue_viewer/ui/issue_tab/issue_tab_page_controller.dart';
 
 import '../../data/enum/tab_type.dart';
 import '../issue_tab/issue_tab_page.dart';
@@ -17,7 +18,8 @@ class HomePage extends HookConsumerWidget {
     useEffect(() {
       void listener() {
         if (!tabController.indexIsChanging) {
-          print(tabController.index);
+          final currentTab = TabType.values[tabController.index];
+          ref.read(issueTabPageControllerProvider(currentTab).notifier).init();
         }
       }
 
@@ -41,7 +43,12 @@ class HomePage extends HookConsumerWidget {
               ),
               onPressed: () async {
                 final result = await _showFilterSheet(context);
-                print(result);
+                final currentTab = TabType.values[tabController.index];
+                if (result == true) {
+                  ref
+                      .read(issueTabPageControllerProvider(currentTab).notifier)
+                      .init();
+                }
               },
             ),
           )

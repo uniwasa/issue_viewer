@@ -20,6 +20,9 @@ abstract class IssueDataSource {
   Future<List<Issue>> getIssues({
     @Query("per_page") required int perPage,
     @Query("page") required int page,
+    @Query("state") required String state,
+    @Query("sort") required String sort,
+    @Query("direction") required String direction,
     @Query("labels") String? labels,
   });
 }

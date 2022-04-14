@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
+import 'package:issue_viewer/data/model/filter_state.dart';
 
 import 'issue.dart';
 
@@ -12,5 +13,6 @@ class IssueTabState with _$IssueTabState {
     required int page,
     required bool loadingNext,
     required bool hasNext,
+    required FilterState filterState,
   }) = _IssueTabState;
 }
