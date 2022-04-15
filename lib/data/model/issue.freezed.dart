@@ -26,6 +26,7 @@ class _$IssueTearOff {
       {required int id,
       required int number,
       required String title,
+      required StateType state,
       required int comments,
       required DateTime createdAt,
       required DateTime updatedAt}) {
@@ -33,6 +34,7 @@ class _$IssueTearOff {
       id: id,
       number: number,
       title: title,
+      state: state,
       comments: comments,
       createdAt: createdAt,
       updatedAt: updatedAt,
@@ -52,6 +54,7 @@ mixin _$Issue {
   int get id => throw _privateConstructorUsedError;
   int get number => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
+  StateType get state => throw _privateConstructorUsedError;
   int get comments => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
@@ -69,6 +72,7 @@ abstract class $IssueCopyWith<$Res> {
       {int id,
       int number,
       String title,
+      StateType state,
       int comments,
       DateTime createdAt,
       DateTime updatedAt});
@@ -87,6 +91,7 @@ class _$IssueCopyWithImpl<$Res> implements $IssueCopyWith<$Res> {
     Object? id = freezed,
     Object? number = freezed,
     Object? title = freezed,
+    Object? state = freezed,
     Object? comments = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -104,6 +109,10 @@ class _$IssueCopyWithImpl<$Res> implements $IssueCopyWith<$Res> {
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      state: state == freezed
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as StateType,
       comments: comments == freezed
           ? _value.comments
           : comments // ignore: cast_nullable_to_non_nullable
@@ -129,6 +138,7 @@ abstract class _$IssueCopyWith<$Res> implements $IssueCopyWith<$Res> {
       {int id,
       int number,
       String title,
+      StateType state,
       int comments,
       DateTime createdAt,
       DateTime updatedAt});
@@ -148,6 +158,7 @@ class __$IssueCopyWithImpl<$Res> extends _$IssueCopyWithImpl<$Res>
     Object? id = freezed,
     Object? number = freezed,
     Object? title = freezed,
+    Object? state = freezed,
     Object? comments = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -165,6 +176,10 @@ class __$IssueCopyWithImpl<$Res> extends _$IssueCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      state: state == freezed
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as StateType,
       comments: comments == freezed
           ? _value.comments
           : comments // ignore: cast_nullable_to_non_nullable
@@ -189,6 +204,7 @@ class _$_Issue with DiagnosticableTreeMixin implements _Issue {
       {required this.id,
       required this.number,
       required this.title,
+      required this.state,
       required this.comments,
       required this.createdAt,
       required this.updatedAt});
@@ -203,6 +219,8 @@ class _$_Issue with DiagnosticableTreeMixin implements _Issue {
   @override
   final String title;
   @override
+  final StateType state;
+  @override
   final int comments;
   @override
   final DateTime createdAt;
@@ -211,7 +229,7 @@ class _$_Issue with DiagnosticableTreeMixin implements _Issue {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Issue(id: $id, number: $number, title: $title, comments: $comments, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Issue(id: $id, number: $number, title: $title, state: $state, comments: $comments, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -222,6 +240,7 @@ class _$_Issue with DiagnosticableTreeMixin implements _Issue {
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('number', number))
       ..add(DiagnosticsProperty('title', title))
+      ..add(DiagnosticsProperty('state', state))
       ..add(DiagnosticsProperty('comments', comments))
       ..add(DiagnosticsProperty('createdAt', createdAt))
       ..add(DiagnosticsProperty('updatedAt', updatedAt));
@@ -235,6 +254,7 @@ class _$_Issue with DiagnosticableTreeMixin implements _Issue {
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.number, number) &&
             const DeepCollectionEquality().equals(other.title, title) &&
+            const DeepCollectionEquality().equals(other.state, state) &&
             const DeepCollectionEquality().equals(other.comments, comments) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             const DeepCollectionEquality().equals(other.updatedAt, updatedAt));
@@ -246,6 +266,7 @@ class _$_Issue with DiagnosticableTreeMixin implements _Issue {
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(number),
       const DeepCollectionEquality().hash(title),
+      const DeepCollectionEquality().hash(state),
       const DeepCollectionEquality().hash(comments),
       const DeepCollectionEquality().hash(createdAt),
       const DeepCollectionEquality().hash(updatedAt));
@@ -266,6 +287,7 @@ abstract class _Issue implements Issue {
       {required int id,
       required int number,
       required String title,
+      required StateType state,
       required int comments,
       required DateTime createdAt,
       required DateTime updatedAt}) = _$_Issue;
@@ -278,6 +300,8 @@ abstract class _Issue implements Issue {
   int get number;
   @override
   String get title;
+  @override
+  StateType get state;
   @override
   int get comments;
   @override

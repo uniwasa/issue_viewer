@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:issue_viewer/ui/issue_tab/component/issue_tile.dart';
 
 import '../../data/enum/tab_type.dart';
 import 'issue_tab_page_controller.dart';
@@ -35,9 +36,7 @@ class IssueTabPage extends HookConsumerWidget {
               SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
-                    return ListTile(
-                      title: Text(issues[index].title),
-                    );
+                    return IssueTile(issues[index]);
                   },
                   childCount: issues.length,
                 ),
