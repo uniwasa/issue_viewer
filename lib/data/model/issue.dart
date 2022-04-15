@@ -8,7 +8,10 @@ part 'issue.g.dart';
 class Issue with _$Issue {
   @JsonSerializable(fieldRename: FieldRename.snake)
   factory Issue({
+    required int id,
+    required int number,
     required String title,
+    required int comments,
     required DateTime createdAt,
     required DateTime updatedAt,
   }) = _Issue;

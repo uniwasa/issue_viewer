@@ -53,20 +53,13 @@ class IssueTabPageController extends StateNotifier<AsyncValue<IssueTabState>> {
             perPage: _perPage,
             page: nextPage,
             onlyOpen: filterState.onlyOpen,
+            pastYear: filterState.pastYear,
             sortType: filterState.sortType,
             labels: _tabType.label)
         .then(
           (result) => result.when(
             success: (nextIssues) {
               final bool hasNext = nextIssues.length >= _perPage;
-
-              // TODO: 1年以内のフィルタのみクライアント側で対応。API側でしたい
-              if (filterState.pastYear) {
-                nextIssues = nextIssues
-                    .where((element) => element.updatedAt.isAfter(
-                        DateTime.now().add(const Duration(days: 365) * -1)))
-                    .toList();
-              }
 
               state = AsyncData(
                 IssueTabState(

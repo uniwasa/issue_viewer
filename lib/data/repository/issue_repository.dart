@@ -16,8 +16,13 @@ class IssueRepository {
       {required int perPage,
       required int page,
       required bool onlyOpen,
+      required bool pastYear,
       required SortType sortType,
       String? labels}) {
+    final lastYearText = DateTime.now()
+        .add(const Duration(days: 365) * -1)
+        .toUtc()
+        .toIso8601String();
     return _read(issueDataSourceProvider)
         .getIssues(
           perPage: perPage,
@@ -25,6 +30,7 @@ class IssueRepository {
           state: onlyOpen ? 'open' : 'all',
           sort: sortType.sort,
           direction: sortType.direction,
+          since: pastYear ? lastYearText : null,
           labels: labels,
         )
         .then((issues) => Result<List<Issue>>.success(issues))

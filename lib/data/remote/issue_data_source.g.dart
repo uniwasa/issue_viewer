@@ -24,6 +24,7 @@ class _IssueDataSource implements IssueDataSource {
       required state,
       required sort,
       required direction,
+      since,
       labels}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -32,6 +33,7 @@ class _IssueDataSource implements IssueDataSource {
       r'state': state,
       r'sort': sort,
       r'direction': direction,
+      r'since': since,
       r'labels': labels
     };
     queryParameters.removeWhere((k, v) => v == null);

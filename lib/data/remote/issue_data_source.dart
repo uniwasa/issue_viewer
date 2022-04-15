@@ -23,6 +23,7 @@ abstract class IssueDataSource {
     @Query("state") required String state,
     @Query("sort") required String sort,
     @Query("direction") required String direction,
+    @Query("since") String? since,
     @Query("labels") String? labels,
   });
 }
