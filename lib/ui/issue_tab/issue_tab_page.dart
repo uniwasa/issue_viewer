@@ -21,9 +21,11 @@ class IssueTabPage extends HookConsumerWidget {
         return NotificationListener<ScrollNotification>(
           onNotification: (notification) {
             if (notification.metrics.extentAfter < 100) {
-              ref
-                  .read(issueTabPageControllerProvider(_type).notifier)
-                  .getNext();
+              WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+                ref
+                    .read(issueTabPageControllerProvider(_type).notifier)
+                    .getNext();
+              });
             }
             return false;
           },
