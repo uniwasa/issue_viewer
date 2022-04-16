@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:issue_viewer/data/provider/current_tab_provider.dart';
 import 'package:issue_viewer/ui/filter_sheet/filter_sheet.dart';
 import 'package:issue_viewer/ui/issue_tab/issue_tab_page_controller.dart';
 
@@ -14,11 +15,11 @@ class HomePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final tabController =
         useTabController(initialLength: TabType.values.length);
-
     useEffect(() {
       void listener() {
         if (!tabController.indexIsChanging) {
           final currentTab = TabType.values[tabController.index];
+          ref.read(currentTabProvider.notifier).state = currentTab;
           ref.read(issueTabPageControllerProvider(currentTab).notifier).init();
         }
       }
@@ -29,10 +30,17 @@ class HomePage extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: TabBar(
+        title: Consumer(builder: (context, ref, child) {
+          final currentTab = ref.watch(currentTabProvider);
+          return Text(currentTab.title);
+        }),
+        bottom: TabBar(
           controller: tabController,
-          isScrollable: true,
-          tabs: [for (final tabType in TabType.values) Tab(text: tabType.name)],
+          isScrollable: false,
+          tabs: [
+            for (final tabType in TabType.values)
+              Tooltip(message: tabType.title, child: Tab(icon: tabType.icon))
+          ],
         ),
         actions: [
           SizedBox(
