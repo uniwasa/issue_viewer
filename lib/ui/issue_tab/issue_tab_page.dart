@@ -17,7 +17,6 @@ class IssueTabPage extends HookConsumerWidget {
       data: (data) {
         final issues = data.issues;
         final loadingNext = data.loadingNext;
-        print(issues.length);
 
         return NotificationListener<ScrollNotification>(
           onNotification: (notification) {
@@ -30,27 +29,52 @@ class IssueTabPage extends HookConsumerWidget {
             }
             return false;
           },
-          child: CustomScrollView(
-            key: PageStorageKey(_type),
-            slivers: [
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                    return IssueTile(issues[index]);
-                  },
-                  childCount: issues.length,
-                ),
-              ),
-              if (loadingNext)
-                const SliverToBoxAdapter(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16.0),
-                    child: Center(
-                      child: CircularProgressIndicator(),
+          child: RefreshIndicator(
+            onRefresh: () async {
+              await ref
+                  .read(issueTabPageControllerProvider(_type).notifier)
+                  .refresh();
+            },
+            child: CustomScrollView(
+              key: PageStorageKey(_type),
+              physics: const AlwaysScrollableScrollPhysics(),
+              slivers: [
+                // 空でなければ
+                if (issues.isNotEmpty)
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                        return IssueTile(issues[index]);
+                      },
+                      childCount: issues.length,
                     ),
                   ),
-                )
-            ],
+
+                // 空ならば
+                if (issues.isEmpty)
+                  SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(Icons.folder_off, color: Colors.grey),
+                        Text('該当なし', style: TextStyle(color: Colors.grey)),
+                      ],
+                    ),
+                  ),
+
+                // 次を読み込み中なら
+                if (loadingNext)
+                  const SliverToBoxAdapter(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16.0),
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                  )
+              ],
+            ),
           ),
         );
       },

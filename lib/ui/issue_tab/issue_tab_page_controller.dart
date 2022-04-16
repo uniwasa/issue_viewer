@@ -21,19 +21,23 @@ class IssueTabPageController extends StateNotifier<AsyncValue<IssueTabState>> {
   final TabType _tabType;
   final _perPage = 20;
 
-  void init() {
+  Future<void> init() async {
     // 検索条件が異なれば取得(初回は必ず異なるので取得)
     final globalFilterState = _read(globalFilterStateProvider);
     final currentFilterState = state.value?.filterState;
     if (globalFilterState != currentFilterState) {
       state = const AsyncLoading();
-      _getIssues([], 1);
+      await _getIssues(currentIssues: [], nextPage: 1);
     }
+  }
+
+  Future<void> refresh() async {
+    await _getIssues(currentIssues: [], nextPage: 1);
   }
 
   Future<void> getNext() async {
     state.whenData(
-      (value) {
+      (value) async {
         // 読み込み中か、次がないならなにもしない
         if (value.loadingNext || !value.hasNext) return;
 
@@ -41,14 +45,15 @@ class IssueTabPageController extends StateNotifier<AsyncValue<IssueTabState>> {
         final currentIssues = value.issues;
         state = AsyncData(value.copyWith(loadingNext: true));
         print('gettingNext');
-        _getIssues(currentIssues, nextPage);
+        await _getIssues(currentIssues: currentIssues, nextPage: nextPage);
       },
     );
   }
 
-  Future<void> _getIssues(List<Issue> currentIssues, int nextPage) async {
+  Future<void> _getIssues(
+      {required List<Issue> currentIssues, required int nextPage}) async {
     final filterState = _read(globalFilterStateProvider);
-    _read(issueRepositoryProvider)
+    await _read(issueRepositoryProvider)
         .getIssues(
             perPage: _perPage,
             page: nextPage,
