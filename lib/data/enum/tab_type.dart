@@ -60,4 +60,21 @@ extension TabTypeX on TabType {
         return 'p: share';
     }
   }
+
+  MaterialColor get color {
+    switch (this) {
+      case TabType.none:
+        return Colors.red;
+      case TabType.webView:
+        return Colors.blue;
+      case TabType.sharedPreferences:
+        return Colors.green;
+      case TabType.waitingForCustomerResponse:
+        return Colors.yellow;
+      case TabType.newFeature:
+        return Colors.purple;
+      case TabType.share:
+        return Colors.brown;
+    }
+  }
 }
