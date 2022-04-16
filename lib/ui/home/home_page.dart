@@ -20,7 +20,9 @@ class HomePage extends HookConsumerWidget {
         if (!tabController.indexIsChanging) {
           final currentTab = TabType.values[tabController.index];
           ref.read(currentTabProvider.notifier).state = currentTab;
-          ref.read(issueTabPageControllerProvider(currentTab).notifier).init();
+          ref
+              .read(issueTabPageControllerProvider(currentTab).notifier)
+              .checkSearchCondition();
         }
       }
 
@@ -55,7 +57,7 @@ class HomePage extends HookConsumerWidget {
                 if (result == true) {
                   ref
                       .read(issueTabPageControllerProvider(currentTab).notifier)
-                      .init();
+                      .checkSearchCondition();
                 }
               },
             ),

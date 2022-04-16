@@ -33,7 +33,7 @@ class IssueTabPage extends HookConsumerWidget {
             onRefresh: () async {
               await ref
                   .read(issueTabPageControllerProvider(_type).notifier)
-                  .refresh();
+                  .getFirst();
             },
             child: CustomScrollView(
               key: PageStorageKey(_type),

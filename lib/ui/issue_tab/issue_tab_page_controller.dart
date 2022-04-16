@@ -14,24 +14,25 @@ final issueTabPageControllerProvider = StateNotifierProvider.family<
 class IssueTabPageController extends StateNotifier<AsyncValue<IssueTabState>> {
   IssueTabPageController(this._read, this._tabType)
       : super(const AsyncLoading()) {
-    init();
+    getFirst();
   }
 
   final Reader _read;
   final TabType _tabType;
   final _perPage = 20;
 
-  Future<void> init() async {
-    // 検索条件が異なれば取得(初回は必ず異なるので取得)
+  Future<void> checkSearchCondition() async {
+    // 検索条件が異なれば取得
     final globalFilterState = _read(globalFilterStateProvider);
     final currentFilterState = state.value?.filterState;
-    if (globalFilterState != currentFilterState) {
+    if (globalFilterState != currentFilterState &&
+        state != const AsyncLoading<IssueTabState>()) {
       state = const AsyncLoading();
-      await _getIssues(currentIssues: [], nextPage: 1);
+      await getFirst();
     }
   }
 
-  Future<void> refresh() async {
+  Future<void> getFirst() async {
     await _getIssues(currentIssues: [], nextPage: 1);
   }
 
@@ -44,7 +45,6 @@ class IssueTabPageController extends StateNotifier<AsyncValue<IssueTabState>> {
         final nextPage = value.page + 1;
         final currentIssues = value.issues;
         state = AsyncData(value.copyWith(loadingNext: true));
-        print('gettingNext');
         await _getIssues(currentIssues: currentIssues, nextPage: nextPage);
       },
     );
