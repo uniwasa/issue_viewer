@@ -1,4 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:issue_viewer/data/enum/direction_type.dart';
 import 'package:issue_viewer/data/enum/sort_type.dart';
 
 import '../model/issue.dart';
@@ -18,6 +19,7 @@ class IssueRepository {
       required bool onlyOpen,
       required bool pastYear,
       required SortType sortType,
+      required DirectionType directionType,
       String? labels}) {
     final lastYearText = DateTime.now()
         .add(const Duration(days: 365) * -1)
@@ -28,8 +30,8 @@ class IssueRepository {
           perPage: perPage,
           page: page,
           state: onlyOpen ? 'open' : 'all',
-          sort: sortType.sort,
-          direction: sortType.direction,
+          sort: sortType.name,
+          direction: directionType.name,
           since: pastYear ? lastYearText : null,
           labels: labels,
         )

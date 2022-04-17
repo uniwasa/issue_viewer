@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
+import 'package:issue_viewer/data/enum/direction_type.dart';
 import 'package:issue_viewer/data/enum/sort_type.dart';
 
 part 'filter_state.freezed.dart';
@@ -10,5 +11,6 @@ class FilterState with _$FilterState {
     required bool onlyOpen,
     required bool pastYear,
     required SortType sortType,
+    required DirectionType directionType,
   }) = _FilterState;
 }

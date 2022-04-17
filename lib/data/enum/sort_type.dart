@@ -1,29 +1,18 @@
 enum SortType {
-  createdDesc,
-  updatedAsc,
-  commentsDesc,
+  created,
+  updated,
+  comments,
 }
 
 extension SortTypeX on SortType {
-  String get sort {
+  String get title {
     switch (this) {
-      case SortType.createdDesc:
-        return 'created';
-      case SortType.updatedAsc:
-        return 'updated';
-      case SortType.commentsDesc:
-        return 'comments';
-    }
-  }
-
-  String get direction {
-    switch (this) {
-      case SortType.createdDesc:
-        return 'desc';
-      case SortType.updatedAsc:
-        return 'asc';
-      case SortType.commentsDesc:
-        return 'desc';
+      case SortType.created:
+        return '作成日時';
+      case SortType.updated:
+        return '更新日時';
+      case SortType.comments:
+        return 'コメント数';
     }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:issue_viewer/data/enum/direction_type.dart';
 import 'package:issue_viewer/data/enum/sort_type.dart';
 import 'package:issue_viewer/ui/filter_sheet/filter_sheet_controller.dart';
 
@@ -14,6 +15,7 @@ class FilterSheet extends HookConsumerWidget {
       child: SafeArea(
         child: Column(
           children: [
+            // Closed除外するか
             CheckboxListTile(
               onChanged: (bool? value) {
                 ref
@@ -21,9 +23,11 @@ class FilterSheet extends HookConsumerWidget {
                     .handleOnlyOpen(value ?? false);
               },
               value: state.onlyOpen,
-              title: const Text('Closed除外'),
+              title: const Text('Closed状態のIssueを除外'),
               controlAffinity: ListTileControlAffinity.leading,
             ),
+
+            // 1年以内か
             CheckboxListTile(
               onChanged: (bool? value) {
                 ref
@@ -31,20 +35,47 @@ class FilterSheet extends HookConsumerWidget {
                     .handlePastYear(value ?? false);
               },
               value: state.pastYear,
-              title: const Text('1年以内'),
+              title: const Text('1年以上更新のないIssueを除外'),
               controlAffinity: ListTileControlAffinity.leading,
             ),
-            for (final sortType in SortType.values)
-              RadioListTile<SortType>(
-                value: sortType,
-                groupValue: state.sortType,
-                title: Text(sortType.name),
+
+            // ソート項目
+            ListTile(
+              title: DropdownButtonFormField<SortType>(
+                decoration: _dropdownDecoration(Icons.sort),
+                items: [
+                  for (final sortType in SortType.values)
+                    DropdownMenuItem(
+                        value: sortType, child: Text(sortType.title)),
+                ],
+                value: state.sortType,
                 onChanged: (value) {
                   ref
                       .read(filterSheetControllerProvider.notifier)
-                      .handleRadio(value!);
+                      .handleSortType(value!);
                 },
               ),
+            ),
+
+            // ソート方向
+            ListTile(
+              title: DropdownButtonFormField<DirectionType>(
+                decoration: _dropdownDecoration(Icons.swap_vert),
+                items: [
+                  for (final directionType in DirectionType.values)
+                    DropdownMenuItem(
+                        value: directionType, child: Text(directionType.title)),
+                ],
+                value: state.directionType,
+                onChanged: (value) {
+                  ref
+                      .read(filterSheetControllerProvider.notifier)
+                      .handleDirectionType(value!);
+                },
+              ),
+            ),
+
+            // 更新ボタン
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: ElevatedButton(
@@ -58,6 +89,18 @@ class FilterSheet extends HookConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+
+  InputDecoration _dropdownDecoration(IconData icon) {
+    return InputDecoration(
+      prefixIcon: Icon(icon, color: Colors.grey),
+      filled: true,
+      fillColor: Colors.black12,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+      border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide.none),
     );
   }
 }

@@ -21,11 +21,13 @@ class _$FilterStateTearOff {
   _FilterState call(
       {required bool onlyOpen,
       required bool pastYear,
-      required SortType sortType}) {
+      required SortType sortType,
+      required DirectionType directionType}) {
     return _FilterState(
       onlyOpen: onlyOpen,
       pastYear: pastYear,
       sortType: sortType,
+      directionType: directionType,
     );
   }
 }
@@ -38,6 +40,7 @@ mixin _$FilterState {
   bool get onlyOpen => throw _privateConstructorUsedError;
   bool get pastYear => throw _privateConstructorUsedError;
   SortType get sortType => throw _privateConstructorUsedError;
+  DirectionType get directionType => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FilterStateCopyWith<FilterState> get copyWith =>
@@ -49,7 +52,11 @@ abstract class $FilterStateCopyWith<$Res> {
   factory $FilterStateCopyWith(
           FilterState value, $Res Function(FilterState) then) =
       _$FilterStateCopyWithImpl<$Res>;
-  $Res call({bool onlyOpen, bool pastYear, SortType sortType});
+  $Res call(
+      {bool onlyOpen,
+      bool pastYear,
+      SortType sortType,
+      DirectionType directionType});
 }
 
 /// @nodoc
@@ -65,6 +72,7 @@ class _$FilterStateCopyWithImpl<$Res> implements $FilterStateCopyWith<$Res> {
     Object? onlyOpen = freezed,
     Object? pastYear = freezed,
     Object? sortType = freezed,
+    Object? directionType = freezed,
   }) {
     return _then(_value.copyWith(
       onlyOpen: onlyOpen == freezed
@@ -79,6 +87,10 @@ class _$FilterStateCopyWithImpl<$Res> implements $FilterStateCopyWith<$Res> {
           ? _value.sortType
           : sortType // ignore: cast_nullable_to_non_nullable
               as SortType,
+      directionType: directionType == freezed
+          ? _value.directionType
+          : directionType // ignore: cast_nullable_to_non_nullable
+              as DirectionType,
     ));
   }
 }
@@ -90,7 +102,11 @@ abstract class _$FilterStateCopyWith<$Res>
           _FilterState value, $Res Function(_FilterState) then) =
       __$FilterStateCopyWithImpl<$Res>;
   @override
-  $Res call({bool onlyOpen, bool pastYear, SortType sortType});
+  $Res call(
+      {bool onlyOpen,
+      bool pastYear,
+      SortType sortType,
+      DirectionType directionType});
 }
 
 /// @nodoc
@@ -108,6 +124,7 @@ class __$FilterStateCopyWithImpl<$Res> extends _$FilterStateCopyWithImpl<$Res>
     Object? onlyOpen = freezed,
     Object? pastYear = freezed,
     Object? sortType = freezed,
+    Object? directionType = freezed,
   }) {
     return _then(_FilterState(
       onlyOpen: onlyOpen == freezed
@@ -122,6 +139,10 @@ class __$FilterStateCopyWithImpl<$Res> extends _$FilterStateCopyWithImpl<$Res>
           ? _value.sortType
           : sortType // ignore: cast_nullable_to_non_nullable
               as SortType,
+      directionType: directionType == freezed
+          ? _value.directionType
+          : directionType // ignore: cast_nullable_to_non_nullable
+              as DirectionType,
     ));
   }
 }
@@ -130,7 +151,10 @@ class __$FilterStateCopyWithImpl<$Res> extends _$FilterStateCopyWithImpl<$Res>
 
 class _$_FilterState with DiagnosticableTreeMixin implements _FilterState {
   _$_FilterState(
-      {required this.onlyOpen, required this.pastYear, required this.sortType});
+      {required this.onlyOpen,
+      required this.pastYear,
+      required this.sortType,
+      required this.directionType});
 
   @override
   final bool onlyOpen;
@@ -138,10 +162,12 @@ class _$_FilterState with DiagnosticableTreeMixin implements _FilterState {
   final bool pastYear;
   @override
   final SortType sortType;
+  @override
+  final DirectionType directionType;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'FilterState(onlyOpen: $onlyOpen, pastYear: $pastYear, sortType: $sortType)';
+    return 'FilterState(onlyOpen: $onlyOpen, pastYear: $pastYear, sortType: $sortType, directionType: $directionType)';
   }
 
   @override
@@ -151,7 +177,8 @@ class _$_FilterState with DiagnosticableTreeMixin implements _FilterState {
       ..add(DiagnosticsProperty('type', 'FilterState'))
       ..add(DiagnosticsProperty('onlyOpen', onlyOpen))
       ..add(DiagnosticsProperty('pastYear', pastYear))
-      ..add(DiagnosticsProperty('sortType', sortType));
+      ..add(DiagnosticsProperty('sortType', sortType))
+      ..add(DiagnosticsProperty('directionType', directionType));
   }
 
   @override
@@ -161,7 +188,9 @@ class _$_FilterState with DiagnosticableTreeMixin implements _FilterState {
             other is _FilterState &&
             const DeepCollectionEquality().equals(other.onlyOpen, onlyOpen) &&
             const DeepCollectionEquality().equals(other.pastYear, pastYear) &&
-            const DeepCollectionEquality().equals(other.sortType, sortType));
+            const DeepCollectionEquality().equals(other.sortType, sortType) &&
+            const DeepCollectionEquality()
+                .equals(other.directionType, directionType));
   }
 
   @override
@@ -169,7 +198,8 @@ class _$_FilterState with DiagnosticableTreeMixin implements _FilterState {
       runtimeType,
       const DeepCollectionEquality().hash(onlyOpen),
       const DeepCollectionEquality().hash(pastYear),
-      const DeepCollectionEquality().hash(sortType));
+      const DeepCollectionEquality().hash(sortType),
+      const DeepCollectionEquality().hash(directionType));
 
   @JsonKey(ignore: true)
   @override
@@ -181,7 +211,8 @@ abstract class _FilterState implements FilterState {
   factory _FilterState(
       {required bool onlyOpen,
       required bool pastYear,
-      required SortType sortType}) = _$_FilterState;
+      required SortType sortType,
+      required DirectionType directionType}) = _$_FilterState;
 
   @override
   bool get onlyOpen;
@@ -189,6 +220,8 @@ abstract class _FilterState implements FilterState {
   bool get pastYear;
   @override
   SortType get sortType;
+  @override
+  DirectionType get directionType;
   @override
   @JsonKey(ignore: true)
   _$FilterStateCopyWith<_FilterState> get copyWith =>

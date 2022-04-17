@@ -110,6 +110,7 @@ class IssueTabPageController extends StateNotifier<AsyncValue<IssueTabState>> {
         onlyOpen: filterState.onlyOpen,
         pastYear: filterState.pastYear,
         sortType: filterState.sortType,
+        directionType: filterState.directionType,
         labels: _tabType.label);
     return result;
   }

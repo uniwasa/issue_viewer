@@ -1,6 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:issue_viewer/data/enum/sort_type.dart';
 
+import '../../data/enum/direction_type.dart';
 import '../../data/model/filter_state.dart';
 import '../../data/provider/global_filter_state_provider.dart';
 
@@ -13,8 +14,12 @@ class FilterSheetController extends StateNotifier<FilterState> {
 
   final Reader _read;
 
-  void handleRadio(SortType sortType) {
+  void handleSortType(SortType sortType) {
     state = state.copyWith(sortType: sortType);
+  }
+
+  void handleDirectionType(DirectionType directionType) {
+    state = state.copyWith(directionType: directionType);
   }
 
   void handleOnlyOpen(bool onlyOpen) {
