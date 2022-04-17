@@ -17,10 +17,11 @@ class IssueTabPage extends HookConsumerWidget {
       data: (data) {
         final issues = data.issues;
         final loadingNext = data.loadingNext;
+        final error = data.error;
 
         return NotificationListener<ScrollNotification>(
           onNotification: (notification) {
-            if (notification.metrics.extentAfter < 100) {
+            if (notification.metrics.extentAfter < 100 && error == null) {
               WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
                 ref
                     .read(issueTabPageControllerProvider(_type).notifier)
@@ -48,10 +49,9 @@ class IssueTabPage extends HookConsumerWidget {
                       },
                       childCount: issues.length,
                     ),
-                  ),
-
+                  )
                 // 空ならば
-                if (issues.isEmpty)
+                else
                   SliverFillRemaining(
                     hasScrollBody: false,
                     child: Column(
@@ -66,10 +66,34 @@ class IssueTabPage extends HookConsumerWidget {
                 // 次を読み込み中なら
                 if (loadingNext)
                   const SliverToBoxAdapter(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16.0),
+                    child: SizedBox(
+                      height: 128,
                       child: Center(
                         child: CircularProgressIndicator(),
+                      ),
+                    ),
+                  ),
+                // 次を読み込み中にエラーが起きた場合
+                if (error != null)
+                  SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 128,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            onPressed: () async {
+                              await ref
+                                  .read(issueTabPageControllerProvider(_type)
+                                      .notifier)
+                                  .getNext();
+                            },
+                            icon: const Icon(Icons.restart_alt,
+                                color: Colors.grey),
+                          ),
+                          const Text('読み込みに失敗しました',
+                              style: TextStyle(color: Colors.grey)),
+                        ],
                       ),
                     ),
                   )
@@ -79,7 +103,24 @@ class IssueTabPage extends HookConsumerWidget {
         );
       },
       error: (error, _) => Center(
-        child: Text(error.toString()),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.error, color: Colors.grey),
+            const Text('読み込みに失敗しました', style: TextStyle(color: Colors.grey)),
+            const SizedBox(
+              height: 8,
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await ref
+                    .read(issueTabPageControllerProvider(_type).notifier)
+                    .retryFirst();
+              },
+              child: const Text('再読み込み'),
+            ),
+          ],
+        ),
       ),
       loading: () => const Center(
         child: CircularProgressIndicator(),

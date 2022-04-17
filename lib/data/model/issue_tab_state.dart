@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:issue_viewer/data/model/filter_state.dart';
@@ -14,5 +15,6 @@ class IssueTabState with _$IssueTabState {
     required bool loadingNext,
     required bool hasNext,
     required FilterState filterState,
+    required DioError? error,
   }) = _IssueTabState;
 }

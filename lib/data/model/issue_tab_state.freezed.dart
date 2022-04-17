@@ -23,13 +23,15 @@ class _$IssueTabStateTearOff {
       required int page,
       required bool loadingNext,
       required bool hasNext,
-      required FilterState filterState}) {
+      required FilterState filterState,
+      required DioError? error}) {
     return _IssueTabState(
       issues: issues,
       page: page,
       loadingNext: loadingNext,
       hasNext: hasNext,
       filterState: filterState,
+      error: error,
     );
   }
 }
@@ -44,6 +46,7 @@ mixin _$IssueTabState {
   bool get loadingNext => throw _privateConstructorUsedError;
   bool get hasNext => throw _privateConstructorUsedError;
   FilterState get filterState => throw _privateConstructorUsedError;
+  DioError? get error => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $IssueTabStateCopyWith<IssueTabState> get copyWith =>
@@ -60,7 +63,8 @@ abstract class $IssueTabStateCopyWith<$Res> {
       int page,
       bool loadingNext,
       bool hasNext,
-      FilterState filterState});
+      FilterState filterState,
+      DioError? error});
 
   $FilterStateCopyWith<$Res> get filterState;
 }
@@ -81,6 +85,7 @@ class _$IssueTabStateCopyWithImpl<$Res>
     Object? loadingNext = freezed,
     Object? hasNext = freezed,
     Object? filterState = freezed,
+    Object? error = freezed,
   }) {
     return _then(_value.copyWith(
       issues: issues == freezed
@@ -103,6 +108,10 @@ class _$IssueTabStateCopyWithImpl<$Res>
           ? _value.filterState
           : filterState // ignore: cast_nullable_to_non_nullable
               as FilterState,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as DioError?,
     ));
   }
 
@@ -126,7 +135,8 @@ abstract class _$IssueTabStateCopyWith<$Res>
       int page,
       bool loadingNext,
       bool hasNext,
-      FilterState filterState});
+      FilterState filterState,
+      DioError? error});
 
   @override
   $FilterStateCopyWith<$Res> get filterState;
@@ -150,6 +160,7 @@ class __$IssueTabStateCopyWithImpl<$Res>
     Object? loadingNext = freezed,
     Object? hasNext = freezed,
     Object? filterState = freezed,
+    Object? error = freezed,
   }) {
     return _then(_IssueTabState(
       issues: issues == freezed
@@ -172,6 +183,10 @@ class __$IssueTabStateCopyWithImpl<$Res>
           ? _value.filterState
           : filterState // ignore: cast_nullable_to_non_nullable
               as FilterState,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as DioError?,
     ));
   }
 }
@@ -184,7 +199,8 @@ class _$_IssueTabState with DiagnosticableTreeMixin implements _IssueTabState {
       required this.page,
       required this.loadingNext,
       required this.hasNext,
-      required this.filterState});
+      required this.filterState,
+      required this.error});
 
   @override
   final List<Issue> issues;
@@ -196,10 +212,12 @@ class _$_IssueTabState with DiagnosticableTreeMixin implements _IssueTabState {
   final bool hasNext;
   @override
   final FilterState filterState;
+  @override
+  final DioError? error;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'IssueTabState(issues: $issues, page: $page, loadingNext: $loadingNext, hasNext: $hasNext, filterState: $filterState)';
+    return 'IssueTabState(issues: $issues, page: $page, loadingNext: $loadingNext, hasNext: $hasNext, filterState: $filterState, error: $error)';
   }
 
   @override
@@ -211,7 +229,8 @@ class _$_IssueTabState with DiagnosticableTreeMixin implements _IssueTabState {
       ..add(DiagnosticsProperty('page', page))
       ..add(DiagnosticsProperty('loadingNext', loadingNext))
       ..add(DiagnosticsProperty('hasNext', hasNext))
-      ..add(DiagnosticsProperty('filterState', filterState));
+      ..add(DiagnosticsProperty('filterState', filterState))
+      ..add(DiagnosticsProperty('error', error));
   }
 
   @override
@@ -225,7 +244,8 @@ class _$_IssueTabState with DiagnosticableTreeMixin implements _IssueTabState {
                 .equals(other.loadingNext, loadingNext) &&
             const DeepCollectionEquality().equals(other.hasNext, hasNext) &&
             const DeepCollectionEquality()
-                .equals(other.filterState, filterState));
+                .equals(other.filterState, filterState) &&
+            const DeepCollectionEquality().equals(other.error, error));
   }
 
   @override
@@ -235,7 +255,8 @@ class _$_IssueTabState with DiagnosticableTreeMixin implements _IssueTabState {
       const DeepCollectionEquality().hash(page),
       const DeepCollectionEquality().hash(loadingNext),
       const DeepCollectionEquality().hash(hasNext),
-      const DeepCollectionEquality().hash(filterState));
+      const DeepCollectionEquality().hash(filterState),
+      const DeepCollectionEquality().hash(error));
 
   @JsonKey(ignore: true)
   @override
@@ -249,7 +270,8 @@ abstract class _IssueTabState implements IssueTabState {
       required int page,
       required bool loadingNext,
       required bool hasNext,
-      required FilterState filterState}) = _$_IssueTabState;
+      required FilterState filterState,
+      required DioError? error}) = _$_IssueTabState;
 
   @override
   List<Issue> get issues;
@@ -261,6 +283,8 @@ abstract class _IssueTabState implements IssueTabState {
   bool get hasNext;
   @override
   FilterState get filterState;
+  @override
+  DioError? get error;
   @override
   @JsonKey(ignore: true)
   _$IssueTabStateCopyWith<_IssueTabState> get copyWith =>

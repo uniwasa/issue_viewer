@@ -36,12 +36,13 @@ class IssueTabPageController extends StateNotifier<AsyncValue<IssueTabState>> {
             loadingNext: false,
             hasNext: _hasNext(issues),
             filterState: filterState,
+            error: null,
           ),
         );
       },
       failure: (error) {
         // エラーの場合
-        print(error);
+        state = AsyncError(error);
       },
     );
   }
@@ -51,7 +52,7 @@ class IssueTabPageController extends StateNotifier<AsyncValue<IssueTabState>> {
       (value) async {
         // 次を読み込み中か、次がないならなにもしない
         if (value.loadingNext || !value.hasNext) return;
-        state = AsyncData(value.copyWith(loadingNext: true));
+        state = AsyncData(value.copyWith(loadingNext: true, error: null));
 
         final nextPage = value.page + 1;
         final currentIssues = value.issues;
@@ -69,12 +70,16 @@ class IssueTabPageController extends StateNotifier<AsyncValue<IssueTabState>> {
                 loadingNext: false,
                 hasNext: _hasNext(nextIssues),
                 filterState: filterState,
+                error: null,
               ),
             );
           },
           failure: (error) {
             // エラーの場合
-            print(error);
+            state = AsyncData(value.copyWith(
+              loadingNext: false,
+              error: error,
+            ));
           },
         );
       },
@@ -90,6 +95,11 @@ class IssueTabPageController extends StateNotifier<AsyncValue<IssueTabState>> {
       state = const AsyncLoading();
       await getFirst();
     }
+  }
+
+  Future<void> retryFirst() async {
+    state = const AsyncLoading();
+    await getFirst();
   }
 
   Future<Result<List<Issue>>> _getIssues(
