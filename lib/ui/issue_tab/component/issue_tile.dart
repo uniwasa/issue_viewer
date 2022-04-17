@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../data/model/issue.dart';
 import '../../../data/enum/state_type.dart';
@@ -12,6 +13,9 @@ class IssueTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: () {
+        launch(_issue.htmlUrl);
+      },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(

@@ -15,6 +15,7 @@ class Issue with _$Issue {
     required String title,
     required StateType state,
     required int comments,
+    required String htmlUrl,
     required DateTime createdAt,
     required DateTime updatedAt,
   }) = _Issue;

@@ -12,6 +12,7 @@ _$_Issue _$$_IssueFromJson(Map<String, dynamic> json) => _$_Issue(
       title: json['title'] as String,
       state: $enumDecode(_$StateTypeEnumMap, json['state']),
       comments: json['comments'] as int,
+      htmlUrl: json['html_url'] as String,
       createdAt: DateTime.parse(json['created_at'] as String),
       updatedAt: DateTime.parse(json['updated_at'] as String),
     );
@@ -22,6 +23,7 @@ Map<String, dynamic> _$$_IssueToJson(_$_Issue instance) => <String, dynamic>{
       'title': instance.title,
       'state': _$StateTypeEnumMap[instance.state],
       'comments': instance.comments,
+      'html_url': instance.htmlUrl,
       'created_at': instance.createdAt.toIso8601String(),
       'updated_at': instance.updatedAt.toIso8601String(),
     };
