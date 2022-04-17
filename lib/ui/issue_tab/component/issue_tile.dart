@@ -62,6 +62,7 @@ class IssueTile extends StatelessWidget {
 
   Widget _buildTime(DateTime time, {bool isCreatedTime = false}) {
     final dateFormat = DateFormat('yyyy/MM/dd HH:mm');
+    final time = isCreatedTime ? _issue.createdAt : _issue.updatedAt;
     const color = Colors.grey;
     return Row(
       children: [
@@ -72,7 +73,7 @@ class IssueTile extends StatelessWidget {
         ),
         const SizedBox(width: 2),
         Text(
-          dateFormat.format(_issue.createdAt.toLocal()).toString(),
+          dateFormat.format(time.toLocal()).toString(),
           style: const TextStyle(color: color),
         ),
       ],
