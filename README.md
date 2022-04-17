@@ -1,16 +1,24 @@
 # issue_viewer
 
-A new Flutter project.
+提出課題です。
 
-## Getting Started
+修正点は以下の通りです。
 
-This project is a starting point for a Flutter application.
+- ソート項目ごとに昇順、降順が選べなかったので、個別に選択できるようにしました。
 
-A few resources to get you started if this is your first Flutter project:
+- タブをスクロールしないと選択できなかったので、ラベルを端的に表すアイコンを使用し、ラベルはAppBarのtitleに表示するようにしました。アイコンを長押しするとツールチップが表示されます。
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+テーマカラーは色トリドリにしました。
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+### 追記
+
+GitHubのAPIの呼び出し回数には1時間ごとの制限がありました。
+
+制限を緩和する場合は [こちら](https://style.potepan.com/articles/34189.html) を参照いただき、Personal Access Tokenを取得し、
+
+```
+flutter run --dart-define=TOKEN="取得したトークン"
+```
+
+のように、環境変数を指定していただくと制限を5,000回まで緩和できるようになっています。
