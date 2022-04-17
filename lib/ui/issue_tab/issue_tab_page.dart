@@ -20,6 +20,7 @@ class IssueTabPage extends HookConsumerWidget {
         final error = data.error;
 
         return NotificationListener<ScrollNotification>(
+          // スクロールを検出できるように
           onNotification: (notification) {
             if (notification.metrics.extentAfter < 100 && error == null) {
               WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
@@ -31,6 +32,7 @@ class IssueTabPage extends HookConsumerWidget {
             return false;
           },
           child: RefreshIndicator(
+            // 引っ張って再読み込み
             onRefresh: () async {
               await ref
                   .read(issueTabPageControllerProvider(_type).notifier)
@@ -50,6 +52,7 @@ class IssueTabPage extends HookConsumerWidget {
                       childCount: issues.length,
                     ),
                   )
+
                 // 空ならば
                 else
                   SliverFillRemaining(
@@ -73,6 +76,7 @@ class IssueTabPage extends HookConsumerWidget {
                       ),
                     ),
                   ),
+
                 // 次を読み込み中にエラーが起きた場合
                 if (error != null)
                   SliverToBoxAdapter(
@@ -102,6 +106,8 @@ class IssueTabPage extends HookConsumerWidget {
           ),
         );
       },
+
+      // 初回読み込み時のエラーの場合
       error: (error, _) => Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -122,6 +128,8 @@ class IssueTabPage extends HookConsumerWidget {
           ],
         ),
       ),
+
+      // 初回読み込み中の場合
       loading: () => const Center(
         child: CircularProgressIndicator(),
       ),

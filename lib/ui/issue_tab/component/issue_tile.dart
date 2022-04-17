@@ -17,7 +17,7 @@ class IssueTile extends StatelessWidget {
         launch(_issue.htmlUrl);
       },
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(12.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -71,8 +71,8 @@ class IssueTile extends StatelessWidget {
     return Row(
       children: [
         Icon(
-          isCreatedTime ? Icons.edit : Icons.refresh,
-          size: 16,
+          isCreatedTime ? Icons.add_circle_outline : Icons.refresh,
+          size: 18,
           color: color,
         ),
         const SizedBox(width: 2),

@@ -13,6 +13,7 @@ class HomePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // タブの変更を検出できるように
     final tabController =
         useTabController(initialLength: TabType.values.length);
     useEffect(() {
@@ -34,7 +35,7 @@ class HomePage extends HookConsumerWidget {
       appBar: AppBar(
         title: Consumer(builder: (context, ref, child) {
           final currentTab = ref.watch(currentTabProvider);
-          return Text(currentTab.title);
+          return FittedBox(child: Text(currentTab.title), fit: BoxFit.fitWidth);
         }),
         bottom: TabBar(
           controller: tabController,
@@ -54,6 +55,7 @@ class HomePage extends HookConsumerWidget {
               onPressed: () async {
                 final result = await _showFilterSheet(context);
                 final currentTab = TabType.values[tabController.index];
+                // 更新ボタンが押された場合
                 if (result == true) {
                   ref
                       .read(issueTabPageControllerProvider(currentTab).notifier)
